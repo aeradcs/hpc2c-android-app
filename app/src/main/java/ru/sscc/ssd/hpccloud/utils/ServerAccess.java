@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class ServerAccess {
@@ -20,21 +22,24 @@ public class ServerAccess {
     private static final String API_NUMBER = "api/1.0/";
     private static final String TOKENS = "tokens";
 
-    public static URL generateURL(String UserLogin, String UserPassword) {
-        Uri uri = Uri.parse(HTTP + UserLogin + ":" + UserPassword + "@" + HPCCLOUD + API_NUMBER + TOKENS).buildUpon().build();    //http://jeje:jejepass@hpccloud.ssd.sscc.ru:4000/api/1.0/tokens
+    public static URL generateURL() {
+        Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + TOKENS).buildUpon().build();    //   http://hpccloud.ssd.sscc.ru:4000/api/1.0/tokens
         URL url = null;
         try {
-             url = new URL(uri.toString());
+            url = new URL(uri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return url;
     }
 
-    public static String getResponseFromServer(URL url) throws IOException {
+    public static String getResponseFromServer(URL url, String auth) throws IOException {
 
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-        urlConnection.setRequestMethod("GET");
+
+        //String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
+        String authHeaderValue = "Basic " + new String(auth);
+        urlConnection.setRequestProperty("Authorization", authHeaderValue);
 
         int s = urlConnection.getResponseCode();
 
