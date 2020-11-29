@@ -17,7 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ApplicationsPageActivity"></activity>
+        <activity android:name=".DocumentsPageActivity"></activity>
+        <activity android:name=".JobsPageActivity"></activity>
+        <activity android:name=".UserInfoPageActivity"></activity>
         <activity android:name=".UserProfileMainPageActivity"></activity>
+
     </application>
 
 </manifest>

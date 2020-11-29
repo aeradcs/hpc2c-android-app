@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">hpccloud</string>
-    <string name="sign_out">sign out</string>
-    <string name="sign_in">sign in</string>
-    <string name="login">login</string>
-    <string name="password">password</string>
-
+    <string name="sign_out">Выйти</string>
+    <string name="sign_in">Войти</string>
+    <string name="login">логин</string>
+    <string name="password">пароль</string>
+    <string name="projects">Проекты</string>
+    <string name="jobs">Задачи</string>
+    <string name="documents">Файлы и каталоги</string>
+    <string name="user_info">Информация о пользователе</string>
 
 </resources>

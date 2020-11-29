@@ -10,11 +10,16 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
+import ru.sscc.ssd.hpccloud.utils.JsonParser;
 
 import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
 import static ru.sscc.ssd.hpccloud.utils.ServerAccess.getResponseFromServer;
@@ -23,12 +28,13 @@ import static ru.sscc.ssd.hpccloud.utils.ServerAccess.getResponseFromServer;
 public class LoginPageActivity extends AppCompatActivity {
     private EditText userLogin;
     private EditText userPassword;
-    private String tokenUserId = null;
+    private static String tokenUserId = null;
     private String auth;
-    SharedPreferences sharedPreferences;
-    //    private static String SHARED_REFS = "sharedRefs";
+    //SharedPreferences sharedPreferences;
     Intent intentUserProfileMainPage;
 
+
+    JsonParser jsonParser;
     public class RequestTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -36,15 +42,17 @@ public class LoginPageActivity extends AppCompatActivity {
             String responseFromServer = null;
             try{
                 responseFromServer = getResponseFromServer(urls[0], auth);
-                tokenUserId = responseFromServer;
-                //saveToken(responseFromServer);
-            } catch (IOException e) {
+                tokenUserId = jsonParser.getToken(responseFromServer);
+                //saveToken(responseFromServer);//
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return responseFromServer;
         }
         @Override
         protected void onPostExecute(String response) {
+            //TextView textView = findViewById(R.id.textView5);
+            //textView.setText(tokenUserId);
             intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
             startActivity(intentUserProfileMainPage);
         }
@@ -57,41 +65,53 @@ public class LoginPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        userLogin = findViewById(R.id.editTextUserLogin);
-        userPassword = findViewById(R.id.editTextUserPassword);
+        //loadToken();
+        //if(tokenUserId == null) {//страница авторизации
 
-        Button buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                URL generatedUrl = generateURL();
-                auth = Base64.getEncoder().encodeToString((userLogin.getText().toString() + ":" + userPassword.getText().toString()).getBytes(StandardCharsets.UTF_8));
-                new RequestTask().execute(generatedUrl);
-            }
+            userLogin = findViewById(R.id.editTextUserLogin);
+            userPassword = findViewById(R.id.editTextUserPassword);
 
-        });
+            Button buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
+
+            jsonParser = new JsonParser();
+
+            buttonSignIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    URL generatedUrl = generateURL();
+                    auth = Base64.getEncoder().encodeToString((userLogin.getText().toString() + ":" + userPassword.getText().toString()).getBytes(StandardCharsets.UTF_8));
+                    new RequestTask().execute(generatedUrl);
+
+                }
+
+            });
+        //}
+        /*else{//страница профиля пользователя
+            intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
+            startActivity(intentUserProfileMainPage);
+        }*/
 
     }
 
-    public void registerPreferences()
+    public static String getTokenUserId()
     {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginPageActivity.this);
-
+        return tokenUserId;
     }
-    public void saveToken(String value){
+    /*public void saveToken(String value){
+        sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("tokenUserId", value);
+        editor.putString(tokenUserId, value);
         editor.commit();
+
 
     }
     public String loadToken(){
+        sharedPreferences = getPreferences(MODE_PRIVATE);
         return sharedPreferences.getString("tokenUserId", null);
-    }
+    }*/
 
-    public boolean isValid(String token)
-    {
-        if(token == null)
-            return false;
-        else return true;
-    }
+
+
+
+
 }

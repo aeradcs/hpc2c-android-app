@@ -37,7 +37,6 @@ public class ServerAccess {
 
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
 
-        //String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
         String authHeaderValue = "Basic " + new String(auth);
         urlConnection.setRequestProperty("Authorization", authHeaderValue);
 
