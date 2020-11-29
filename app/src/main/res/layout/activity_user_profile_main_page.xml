@@ -62,4 +62,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonJobs" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="result"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="71dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

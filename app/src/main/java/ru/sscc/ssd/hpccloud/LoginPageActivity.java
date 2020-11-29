@@ -51,8 +51,6 @@ public class LoginPageActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String response) {
-            //TextView textView = findViewById(R.id.textView5);
-            //textView.setText(tokenUserId);
             intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
             startActivity(intentUserProfileMainPage);
         }
