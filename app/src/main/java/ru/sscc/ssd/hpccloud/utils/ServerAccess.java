@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +26,12 @@ public class ServerAccess {
     private static final String API_NUMBER = "api/1.0/";
     private static final String TOKENS = "tokens";
     private static final String POJECTS = "projects?";
+    private static final String USERS = "users?";
+    private static final String JOBS = "jobs?";
+    private static final String FS = "fs/?";//  fs/?  OR  fs?
     private static final String ACCESS_TOKEN = "access_token=";
+
+
     public static URL generateURL() {
         Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + TOKENS).buildUpon().build();    //   http://hpccloud.ssd.sscc.ru:4000/api/1.0/tokens
         URL url = null;
@@ -46,7 +53,37 @@ public class ServerAccess {
         }
         return url;
     }
-    public static String getApplicationsListFromServer(URL url, String token) throws IOException {
+    public static URL generateURLForJobsRequest(String token){
+        Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + JOBS + ACCESS_TOKEN + token).buildUpon().build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+    public static URL generateURLForDocumentsRequest(String token){
+        Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + FS + ACCESS_TOKEN + token).buildUpon().build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+    public static URL generateURLForUserInfoRequest(String token){
+        Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + USERS + ACCESS_TOKEN + token).buildUpon().build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+    public static String getResponse(URL url, String token) throws IOException {//ответ в формате json--->надо доделать
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
         try {
             InputStream inputStreamFromServer = new BufferedInputStream(urlConnection.getInputStream());
@@ -61,7 +98,8 @@ public class ServerAccess {
             urlConnection.disconnect();
         }
     }
-    public static String getResponseFromServer(URL url, String auth) throws IOException {
+
+    public static String getAuthorizationResponseFromServer(URL url, String auth) throws IOException {
 
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
 

@@ -20,9 +20,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
+import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.getResponseFromServer;
 
 
 public class LoginPageActivity extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class LoginPageActivity extends AppCompatActivity {
         protected String doInBackground(URL... urls) {
             String responseFromServer = null;
             try{
-                responseFromServer = getResponseFromServer(urls[0], auth);
+                responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
                 tokenUserId = jsonParser.getToken(responseFromServer);
                 //saveToken(responseFromServer);//
             } catch (IOException | JSONException e) {
