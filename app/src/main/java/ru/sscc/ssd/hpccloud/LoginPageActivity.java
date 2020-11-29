@@ -22,7 +22,6 @@ import java.util.Base64;
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
 
 
 public class LoginPageActivity extends AppCompatActivity {
@@ -76,7 +75,7 @@ public class LoginPageActivity extends AppCompatActivity {
             buttonSignIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    URL generatedUrl = generateURL();
+                    URL generatedUrl = ServerAccess.generateAuthorizationURL();
                     auth = Base64.getEncoder().encodeToString((userLogin.getText().toString() + ":" + userPassword.getText().toString()).getBytes(StandardCharsets.UTF_8));
                     new RequestTask().execute(generatedUrl);
 

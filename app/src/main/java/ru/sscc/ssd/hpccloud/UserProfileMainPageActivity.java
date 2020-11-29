@@ -11,32 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURLForApplicationsRequest;
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURLForDocumentsRequest;
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURLForJobsRequest;
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.getResponse;
 
 public class UserProfileMainPageActivity extends AppCompatActivity {
-    private String typeOfRequest;
     public class RequestTask extends AsyncTask<URL, Void, String> {
-
 
         @Override
         protected String doInBackground(URL... urls) {
             String responseFromServer = null;
 
             try {
-                responseFromServer = ServerAccess.getResponse(urls[0], LoginPageActivity.getTokenUserId());
+                responseFromServer = ServerAccess.getResponse(urls[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,8 +50,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         buttonApplications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                typeOfRequest = "applications";
-                URL generatedUrl = ServerAccess.generateURLForApplicationsRequest(LoginPageActivity.getTokenUserId());
+                URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "projects?");
                 new RequestTask().execute(generatedUrl);
 
             }
@@ -71,8 +59,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         buttonJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                typeOfRequest = "jobs";
-                URL generatedUrl = ServerAccess.generateURLForJobsRequest(LoginPageActivity.getTokenUserId());
+                URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "jobs?");
                 new RequestTask().execute(generatedUrl);
             }
         });
@@ -80,8 +67,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         buttonDocuments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                typeOfRequest = "documents";
-                URL generatedUrl = ServerAccess.generateURLForDocumentsRequest(LoginPageActivity.getTokenUserId());
+                URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "fs/?");
                 new RequestTask().execute(generatedUrl);
             }
         });
@@ -90,8 +76,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         buttonUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                typeOfRequest = "userInfo";
-                URL generatedUrl = ServerAccess.generateURLForUserInfoRequest(LoginPageActivity.getTokenUserId());
+                URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "users?");
                 new RequestTask().execute(generatedUrl);
             }
         });
