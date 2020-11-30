@@ -18,11 +18,16 @@ import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 
 public class UserProfileMainPageActivity extends AppCompatActivity {
+    private static String responseFromServer;
+
+    public static String getResponseFromServer(){
+        return responseFromServer;
+    }
+
     public class RequestTask extends AsyncTask<URL, Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
-            String responseFromServer = null;
 
             try {
                 responseFromServer = ServerAccess.getResponse(urls[0]);
@@ -34,10 +39,10 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String response) {
-            //Intent intentApplications = new Intent(UserProfileMainPageActivity.this, ApplicationsPageActivity.class);
-            //startActivity(intentApplications);
-            TextView textView = findViewById(R.id.textView);
-            textView.setText(response);
+            Intent intentApplications = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);//
+            startActivity(intentApplications);
+            //TextView textView = findViewById(R.id.textView);
+            //textView.setText(response);
         }
     }
     @Override
