@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,7 +25,8 @@ public class UserInfoPageActivity extends AppCompatActivity {
     private static String response = UserProfileMainPageActivity.getResponseFromServer();
     JsonParser jsonParser = new JsonParser();
     RecyclerView numberList;
-    private static LinkedHashMap<String, String> userInfo = new LinkedHashMap<>();
+    private static ArrayList<String> keys = new ArrayList<>();
+    private static ArrayList<String> values = new ArrayList<>();
 
     UserInfoAdapter adapter;
     @Override
@@ -31,29 +34,34 @@ public class UserInfoPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_page);
         try {
-            userInfo = jsonParser.parseUserInfo(response);
+            jsonParser.parseUserInfo(response, keys, values);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");//___________________________
-        userInfo.forEach((key, value)->{
-            System.out.println("KEY   " + key + "   VALUE  " + value + "\n");
-        });
+        /*System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");//___________________________
+        System.out.println(keys.toString() + "\n" + values.toString());*/
+
+
 
         numberList = findViewById(R.id.recycleViewUserInfo);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         numberList.setLayoutManager(linearLayoutManager);
         numberList.setHasFixedSize(true);
-        adapter = new UserInfoAdapter(userInfo.size());
+        adapter = new UserInfoAdapter(keys.size());
         numberList.setAdapter(adapter);
 
 
     }
 
-    public static LinkedHashMap<String , String> getUserInfo()
+    public static ArrayList<String> getKeys()
     {
-        return userInfo;
+        return keys;
     }
+    public static ArrayList<String> getValues()
+    {
+        return values;
+    }
+
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
 
     private static int count;
     private int numberitems;
-    private static LinkedHashMap<String , String> userInfo = UserInfoPageActivity.getUserInfo();
+    private static ArrayList<String> keys = UserInfoPageActivity.getKeys();
+    private static ArrayList<String> values = UserInfoPageActivity.getValues();
 
     public UserInfoAdapter(int size){
         numberitems = size;
@@ -31,10 +33,12 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.user_info_item, parent, false);
-
         UserInfoHolder holder = new UserInfoHolder(view);
-        holder.value.setText("aao " + count);//
+
+        holder.key.setText(keys.get(count));
+        holder.value.setText(values.get(count));
         count++;
+
         return holder;
     }
 
@@ -57,14 +61,13 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
         public UserInfoHolder(@NonNull View itemView) {
             super(itemView);
             key = itemView.findViewById(R.id.textViewKey);
-           value = itemView.findViewById(R.id.textViewValue);
-
+            value = itemView.findViewById(R.id.textViewValue);
         }
 
         void bind(int i)
         {
-            key.setText(String.valueOf(i));
-           // value.setText(String.);
+            key.setText(keys.get(i));
+            value.setText(values.get(i));
         }
 
     }
