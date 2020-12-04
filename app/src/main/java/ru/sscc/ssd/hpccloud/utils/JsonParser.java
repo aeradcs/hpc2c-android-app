@@ -41,7 +41,6 @@ public class JsonParser {
         int arrLength = arrayFromObject.length();
         int length;
         String key;
-
         for(int i = 0; i < arrLength; i++) {
             objectFromArrayFromObject = arrayFromObject.getJSONObject(i);
             length = objectFromArrayFromObject.length();

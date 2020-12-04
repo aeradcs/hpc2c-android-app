@@ -20,10 +20,14 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
     private int itemsAmount;
     private static ArrayList<String> keys = ApplicationsPageActivity.getKeys();
     private static ArrayList<String> values = ApplicationsPageActivity.getValues();
+    //private static int size = ApplicationsPageActivity.getVSize();
+
+    private int valueCount;
 
     public ApplicationsAdapter(int size){
         itemsAmount = size;
         itemsCount = 0;
+        valueCount = 0;
     }
     @NonNull
     @Override
@@ -33,17 +37,19 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
         View view = inflater.inflate(R.layout.applications_item, parent, false);
         ApplicationsAdapter.ApplicationsHolder holder = new ApplicationsAdapter.ApplicationsHolder(view);
 
-        if(keys.get(itemsCount).equals("id")) {
-            holder.id.setText(values.get(itemsCount));
-        }
-        if(keys.get(itemsCount).equals("name") ) {
-            holder.name.setText(values.get(itemsCount));
-        }
-        if(keys.get(itemsCount).equals("last_modify_time")) {
-            holder.time.setText(values.get(itemsCount));
-            itemsCount++;
-        }
+        for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
+            if (keys.get(keyCount).equals("id")) {
+                holder.id.setText(values.get(valueCount));
+            }
+            if (keys.get(keyCount).equals("name")) {
+                holder.name.setText(values.get(valueCount));
+            }
+            if (keys.get(keyCount).equals("last_modify_time")) {
+                holder.time.setText(values.get(valueCount));
+            }
 
+        }
+        itemsCount++;
 
         return holder;
     }
@@ -74,9 +80,22 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
 
         void bind(int i)
         {
-            id.setText(values.get(i));
-            name.setText(values.get(i));
-            time.setText(values.get(i));
+            for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
+                if(values.size() > valueCount) {
+                    if (keys.get(keyCount).equals("id")) {
+                        id.setText(values.get(valueCount));//
+                    }
+                    if (keys.get(keyCount).equals("name")) {
+                        name.setText(values.get(valueCount));
+                    }
+                    if (keys.get(keyCount).equals("last_modify_time")) {
+                        time.setText(values.get(valueCount));
+                    }
+                }
+            }
+            //id.setText(values.get(i));
+            //name.setText(values.get(i));
+            //time.setText(values.get(i));
         }
 
     }

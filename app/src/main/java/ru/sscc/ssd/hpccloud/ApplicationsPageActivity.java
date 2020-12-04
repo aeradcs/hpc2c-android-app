@@ -27,6 +27,7 @@ public class ApplicationsPageActivity extends AppCompatActivity {
     RecyclerView numberList;
     private static ArrayList<String> keys = new ArrayList<>();
     private static ArrayList<String> values = new ArrayList<>();
+    //private int size;
 
     ApplicationsAdapter adapter;
     @Override
@@ -35,16 +36,18 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_applications_page);
 
         try {
-            jsonParser.parseApplications(response, keys, values);
+            jsonParser.parseApplications(response, keys, values/*, size*/);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         numberList = findViewById(R.id.recycleViewApplications);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        numberList.setLayoutManager(linearLayoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        numberList.setLayoutManager(layoutManager);
         numberList.setHasFixedSize(true);
-        adapter = new ApplicationsAdapter(keys.size());
+        int size = values.size()/keys.size();
+        adapter = new ApplicationsAdapter(size);
         numberList.setAdapter(adapter);
 
     }
