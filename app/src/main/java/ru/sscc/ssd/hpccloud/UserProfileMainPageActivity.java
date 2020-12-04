@@ -39,9 +39,11 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String response) {
-            Intent intentApplications = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);//
+            //Intent intentUserInfo = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);//
+            //startActivity(intentUserInfo);
+            Intent intentApplications = new Intent(UserProfileMainPageActivity.this, ApplicationsPageActivity.class);
             startActivity(intentApplications);
-            //TextView textView = findViewById(R.id.textView);
+            //TextView textView = findViewById(R.id.res);
             //textView.setText(response);
         }
     }

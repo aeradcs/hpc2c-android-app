@@ -18,19 +18,42 @@ public class JsonParser {
         JSONObject jsonTokenObject = jsonArray.getJSONObject(0);
         return jsonTokenObject.getString("token");
     }
-    public void parseUserInfo(String response, ArrayList<String> keys,ArrayList<String> values) throws JSONException {
+    public void parseUserInfo(String response, ArrayList<String> keys, ArrayList<String> values) throws JSONException {//user info
         JSONObject object = new JSONObject(response);
-        JSONArray arrayFromObject = object.getJSONArray("users");
-        JSONObject objectFromArray = arrayFromObject.getJSONObject(0);
-        LinkedHashMap<String , String > userInfo = new LinkedHashMap<>();
+        Iterator<String> iterator = object.keys();
+        JSONArray arrayFromObject = object.getJSONArray(iterator.next());
+        JSONObject objectFromArrayFromObject = arrayFromObject.getJSONObject(0);
 
-        int length = objectFromArray.length();
-        Iterator<String> itKeys = objectFromArray.keys();
+        int length = objectFromArrayFromObject.length();
+        Iterator<String> itKeys = objectFromArrayFromObject.keys();
         String key;
         for(int i = 0; i < length; i++){
             key = itKeys.next();
             keys.add(key);
-            values.add(objectFromArray.getString(key));
+            values.add(objectFromArrayFromObject.getString(key));
+        }
+    }
+    public void parseApplications(String response, ArrayList<String> keys, ArrayList<String> values) throws JSONException {
+        JSONObject object = new JSONObject(response);
+        Iterator<String> iterator = object.keys();
+        JSONArray arrayFromObject = object.getJSONArray(iterator.next());
+        JSONObject objectFromArrayFromObject;
+        int arrLength = arrayFromObject.length();
+        int length;
+        String key;
+
+        for(int i = 0; i < arrLength; i++) {
+            objectFromArrayFromObject = arrayFromObject.getJSONObject(i);
+            length = objectFromArrayFromObject.length();
+            Iterator<String> itKeys = objectFromArrayFromObject.keys();
+
+            for(int j = 0; j < length; j++){
+                key = itKeys.next();
+                if(i==0) {
+                    keys.add(key);
+                }
+                values.add(objectFromArrayFromObject.getString(key));
+            }
         }
     }
 }
