@@ -35,9 +35,9 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
         View view = inflater.inflate(R.layout.user_info_item, parent, false);
         UserInfoHolder holder = new UserInfoHolder(view);
 
-        holder.key.setText(keys.get(count));
-        holder.value.setText(values.get(count));
-        count++;
+        //holder.key.setText(keys.get(count));
+        //holder.value.setText(values.get(count));
+        //count++;
 
         return holder;
     }

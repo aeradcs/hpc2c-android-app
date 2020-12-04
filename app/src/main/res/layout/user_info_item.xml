@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:text="key"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textViewValue"
@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:text="value"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 </FrameLayout>
