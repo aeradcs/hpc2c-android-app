@@ -49,6 +49,9 @@ public class ServerAccess {
         }
         return url;
     }
+    /*public static URL generateRegistrationURL(){
+
+    }*/
 
     public static String getResponse(URL url) throws IOException {//ответ в формате json--->надо доделать
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();

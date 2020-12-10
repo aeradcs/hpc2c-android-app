@@ -14,11 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.net.URL;
 
+import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 
 public class UserProfileMainPageActivity extends AppCompatActivity {
     private static String responseFromServer;
+    private String requestType;
+    //private JsonParser jsonParser = new JsonParser();
 
     public static String getResponseFromServer(){
         return responseFromServer;
@@ -31,6 +34,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
 
             try {
                 responseFromServer = ServerAccess.getResponse(urls[0]);
+                //requestType = jsonParser.getRequestType();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,12 +43,27 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String response) {
-            //Intent intentUserInfo = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);//
-            //startActivity(intentUserInfo);
-            Intent intentApplications = new Intent(UserProfileMainPageActivity.this, ApplicationsPageActivity.class);
-            startActivity(intentApplications);
-            //TextView textView = findViewById(R.id.res);
-            //textView.setText(response);
+            //не знаю как сделать это по-другому
+            if (requestType.equals("directory"))
+            {
+                Intent intentDirectory = new Intent(UserProfileMainPageActivity.this, DocumentsPageActivity.class);
+                startActivity(intentDirectory);
+            }
+            else if (requestType.equals("jobs"))
+            {
+                Intent intentJobs = new Intent(UserProfileMainPageActivity.this, JobsPageActivity.class);
+                startActivity(intentJobs);
+            }
+            else if(requestType.equals("projects"))
+            {
+                Intent intentApplications = new Intent(UserProfileMainPageActivity.this, ApplicationsPageActivity.class);
+                startActivity(intentApplications);
+            }
+            else if(requestType.equals("users"))
+            {
+                Intent intentUserInfo = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);
+                startActivity(intentUserInfo);
+            }
         }
     }
     @Override
@@ -59,7 +78,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "projects?");
                 new RequestTask().execute(generatedUrl);
-
+                requestType = "projects";
             }
         });
         Button buttonJobs = (Button)findViewById(R.id.buttonJobs);
@@ -68,6 +87,8 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "jobs?");
                 new RequestTask().execute(generatedUrl);
+                requestType = "jobs";
+
             }
         });
         Button buttonDocuments = (Button)findViewById(R.id.buttonDocuments);
@@ -76,6 +97,8 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "fs/?");
                 new RequestTask().execute(generatedUrl);
+                requestType = "directory";
+
             }
         });
 
@@ -85,6 +108,8 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 URL generatedUrl = ServerAccess.generateURL(LoginPageActivity.getTokenUserId(), "users?");
                 new RequestTask().execute(generatedUrl);
+                requestType = "users";
+
             }
         });
     }

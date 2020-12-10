@@ -37,20 +37,6 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
         View view = inflater.inflate(R.layout.applications_item, parent, false);
         ApplicationsAdapter.ApplicationsHolder holder = new ApplicationsAdapter.ApplicationsHolder(view);
 
-        /*for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
-            if (keys.get(keyCount).equals("id")) {
-                holder.id.setText(values.get(valueCount));
-            }
-            if (keys.get(keyCount).equals("name")) {
-                holder.name.setText(values.get(valueCount));
-            }
-            if (keys.get(keyCount).equals("last_modify_time")) {
-                holder.time.setText(values.get(valueCount));
-            }
-
-        }
-        itemsCount++;*/
-
         return holder;
     }
 
@@ -67,23 +53,23 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
 
     class ApplicationsHolder extends RecyclerView.ViewHolder{
 
-        TextView id;
+        //TextView id;
         TextView name;
         TextView time;
 
         public ApplicationsHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.tv_id);
-            name = itemView.findViewById(R.id.tv_name);
-            time = itemView.findViewById(R.id.tv_time);
+            //id = itemView.findViewById(R.id.tv);
+            name = itemView.findViewById(R.id.tvAppName);
+            time = itemView.findViewById(R.id.tvAppTime);
         }
 
         void bind(int i)
         {
             for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
-                if (keys.get(keyCount).equals("id")) {
+                /*if (keys.get(keyCount).equals("id")) {
                     id.setText(values.get(valueCount));
-                }
+                }*/
                 if (keys.get(keyCount).equals("name")) {
                     name.setText(values.get(valueCount));
                 }
@@ -92,10 +78,6 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
                 }
 
             }
-            //itemsCount++;
-            //id.setText(values.get(i));
-            //name.setText(values.get(i));
-            //time.setText(values.get(i));
         }
 
     }

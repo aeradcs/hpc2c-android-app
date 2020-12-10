@@ -1,11 +1,13 @@
 package ru.sscc.ssd.hpccloud;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -29,9 +31,9 @@ public class LoginPageActivity extends AppCompatActivity {
     private EditText userPassword;
     private static String tokenUserId = null;
     private String auth;
-    //SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
     Intent intentUserProfileMainPage;
-
+    Bundle bundle;
 
     JsonParser jsonParser;
     public class RequestTask extends AsyncTask<URL, Void, String> {
@@ -42,7 +44,7 @@ public class LoginPageActivity extends AppCompatActivity {
             try{
                 responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
                 tokenUserId = jsonParser.getToken(responseFromServer);
-                //saveToken(responseFromServer);//
+                //saveToken(jsonParser.getToken(responseFromServer));//
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -55,6 +57,21 @@ public class LoginPageActivity extends AppCompatActivity {
         }
     }
 
+    /*@Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("token", tokenUserId);
+
+
+    }*/
+
+   /* @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        tokenUserId = savedInstanceState.getString("token");
+    }*/
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +80,13 @@ public class LoginPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         //loadToken();
-        //if(tokenUserId == null) {//страница авторизации
+        //if(savedInstanceState == null) {//страница авторизации
 
             userLogin = findViewById(R.id.editTextUserLogin);
             userPassword = findViewById(R.id.editTextUserPassword);
-
-            Button buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
-
             jsonParser = new JsonParser();
 
+            Button buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
             buttonSignIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,6 +97,15 @@ public class LoginPageActivity extends AppCompatActivity {
                 }
 
             });
+            Button buttonSignUp = (Button)findViewById(R.id.buttonSignUp);
+            buttonSignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent registrationFormIntent = new Intent(LoginPageActivity.this, RegistrationFormActivity.class);
+                    startActivity(registrationFormIntent);
+                }
+            });
+
         //}
         /*else{//страница профиля пользователя
             intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
@@ -94,6 +118,8 @@ public class LoginPageActivity extends AppCompatActivity {
     {
         return tokenUserId;
     }
+
+
     /*public void saveToken(String value){
         sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

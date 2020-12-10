@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class JsonParser {
-
+    //private static String requestType;
 
     public String getToken(String response) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
@@ -21,6 +21,7 @@ public class JsonParser {
     public void parseUserInfo(String response, ArrayList<String> keys, ArrayList<String> values) throws JSONException {//user info
         JSONObject object = new JSONObject(response);
         Iterator<String> iterator = object.keys();
+        //requestType = object.keys().next();
         JSONArray arrayFromObject = object.getJSONArray(iterator.next());
         JSONObject objectFromArrayFromObject = arrayFromObject.getJSONObject(0);
 
@@ -36,6 +37,7 @@ public class JsonParser {
     public void parseApplications(String response, ArrayList<String> keys, ArrayList<String> values) throws JSONException {
         JSONObject object = new JSONObject(response);
         Iterator<String> iterator = object.keys();
+        //requestType = object.keys().next();
         JSONArray arrayFromObject = object.getJSONArray(iterator.next());
         JSONObject objectFromArrayFromObject;
         int arrLength = arrayFromObject.length();
@@ -55,4 +57,8 @@ public class JsonParser {
             }
         }
     }
+
+   /* public String getRequestType() {
+        return requestType;
+    }*/
 }

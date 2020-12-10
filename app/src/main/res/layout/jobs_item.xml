@@ -4,18 +4,24 @@
     android:layout_height="wrap_content"
     android:layout_columnWeight="0.3">
 
-
     <TextView
-        android:id="@+id/tvAppName"
+        android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="0.5"
+        android:layout_columnWeight="0.3"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/tvAppTime"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="0.5"
+        android:layout_columnWeight="0.3"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="0.3"
         android:text="TextView" />
 </GridLayout>
