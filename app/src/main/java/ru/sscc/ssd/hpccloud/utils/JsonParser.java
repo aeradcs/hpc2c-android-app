@@ -57,7 +57,29 @@ public class JsonParser {
             }
         }
     }
+    public void parseJobs(String response, ArrayList<String> keys, ArrayList<String> values) throws JSONException {
+        JSONObject object = new JSONObject(response);
+        Iterator<String> iterator = object.keys();
+        //requestType = object.keys().next();
+        JSONArray arrayFromObject = object.getJSONArray(iterator.next());
+        JSONObject objectFromArrayFromObject;
+        int arrLength = arrayFromObject.length();
+        int length;
+        String key;
+        for(int i = 0; i < arrLength; i++) {
+            objectFromArrayFromObject = arrayFromObject.getJSONObject(i);
+            length = objectFromArrayFromObject.length();
+            Iterator<String> itKeys = objectFromArrayFromObject.keys();
 
+            for(int j = 0; j < length; j++){
+                key = itKeys.next();
+                if(i==0) {
+                    keys.add(key);
+                }
+                values.add(objectFromArrayFromObject.getString(key));
+            }
+        }
+    }
    /* public String getRequestType() {
         return requestType;
     }*/
