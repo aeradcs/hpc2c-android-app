@@ -44,7 +44,7 @@ public class LoginPageActivity extends AppCompatActivity {
             try{
                 responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
                 tokenUserId = jsonParser.getToken(responseFromServer);
-                //saveToken(jsonParser.getToken(responseFromServer));//
+                saveToken(jsonParser.getToken(responseFromServer));//
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -57,30 +57,14 @@ public class LoginPageActivity extends AppCompatActivity {
         }
     }
 
-    /*@Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("token", tokenUserId);
-
-
-    }*/
-
-   /* @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        tokenUserId = savedInstanceState.getString("token");
-    }*/
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        //loadToken();
-        //if(savedInstanceState == null) {//страница авторизации
+        tokenUserId = loadToken();
+        if(tokenUserId == null) {//страница авторизации  tokenUserId.isValid()
 
             userLogin = findViewById(R.id.editTextUserLogin);
             userPassword = findViewById(R.id.editTextUserPassword);
@@ -106,11 +90,11 @@ public class LoginPageActivity extends AppCompatActivity {
                 }
             });
 
-        //}
-        /*else{//страница профиля пользователя
+        }
+        else{//страница профиля пользователя
             intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
             startActivity(intentUserProfileMainPage);
-        }*/
+        }
 
     }
 
@@ -120,10 +104,10 @@ public class LoginPageActivity extends AppCompatActivity {
     }
 
 
-    /*public void saveToken(String value){
+    public void saveToken(String value){
         sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(tokenUserId, value);
+        editor.putString("tokenUserId", value);
         editor.commit();
 
 
@@ -131,6 +115,15 @@ public class LoginPageActivity extends AppCompatActivity {
     public String loadToken(){
         sharedPreferences = getPreferences(MODE_PRIVATE);
         return sharedPreferences.getString("tokenUserId", null);
+    }
+
+    /*public boolean isValid()
+    {
+        if(tokenUserId == null)
+            return false;
+        else {//отправить запрос
+
+        }
     }*/
 
 

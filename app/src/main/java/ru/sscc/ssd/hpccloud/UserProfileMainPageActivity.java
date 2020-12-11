@@ -19,6 +19,7 @@ import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 
 public class UserProfileMainPageActivity extends AppCompatActivity {
+    private  static  int num;
     private static String responseFromServer;
     private String requestType;
     //private JsonParser jsonParser = new JsonParser();

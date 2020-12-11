@@ -17,12 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ApplicationsPageActivity"></activity>
-        <activity android:name=".DocumentsPageActivity"></activity>
-        <activity android:name=".JobsPageActivity"></activity>
-        <activity android:name=".UserInfoPageActivity"></activity>
-        <activity android:name=".UserProfileMainPageActivity"></activity>
-
+        <activity android:name=".ApplicationsPageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".DocumentsPageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".JobsPageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".UserInfoPageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".UserProfileMainPageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".RegistrationFormActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

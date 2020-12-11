@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -49,11 +50,22 @@ public class ServerAccess {
         }
         return url;
     }
-    /*public static URL generateRegistrationURL(){
+    /*public static URL generateRegistrationURL(ArrayList<String > params){
+        Uri uri = Uri.parse(HTTP + HPCCLOUD + API_NUMBER + typeOfRequest + ACCESS_TOKEN + token).buildUpon().build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }*/
+   /* public static String getRegistrationResponse(URL url)
+    {
 
     }*/
 
-    public static String getResponse(URL url) throws IOException {//ответ в формате json--->надо доделать
+    public static String getResponse(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
         try {
             InputStream inputStreamFromServer = new BufferedInputStream(urlConnection.getInputStream());
