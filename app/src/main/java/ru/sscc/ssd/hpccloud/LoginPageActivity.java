@@ -33,7 +33,7 @@ public class LoginPageActivity extends AppCompatActivity {
     private String auth;
     SharedPreferences sharedPreferences;
     Intent intentUserProfileMainPage;
-    Bundle bundle;
+
 
     JsonParser jsonParser;
     public class RequestTask extends AsyncTask<URL, Void, String> {
@@ -43,7 +43,7 @@ public class LoginPageActivity extends AppCompatActivity {
             String responseFromServer = null;
             try{
                 responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
-                tokenUserId = jsonParser.getToken(responseFromServer);
+                //tokenUserId = jsonParser.getToken(responseFromServer);
                 saveToken(jsonParser.getToken(responseFromServer));//
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -64,7 +64,7 @@ public class LoginPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         tokenUserId = loadToken();
-        if(tokenUserId == null) {//страница авторизации  tokenUserId.isValid()
+        if(tokenUserId == null) {//страница авторизации
 
             userLogin = findViewById(R.id.editTextUserLogin);
             userPassword = findViewById(R.id.editTextUserPassword);

@@ -19,7 +19,6 @@ import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 
 public class UserProfileMainPageActivity extends AppCompatActivity {
-    private  static  int num;
     private static String responseFromServer;
     private String requestType;
     //private JsonParser jsonParser = new JsonParser();
@@ -45,11 +44,11 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             //не знаю как сделать это по-другому
-            if (requestType.equals("directory"))
-            {
+            /*if (requestType.equals("directory"))
+            {*/
                 Intent intentDirectory = new Intent(UserProfileMainPageActivity.this, DocumentsPageActivity.class);
                 startActivity(intentDirectory);
-            }
+            /*}
             else if (requestType.equals("jobs"))
             {
                 Intent intentJobs = new Intent(UserProfileMainPageActivity.this, JobsPageActivity.class);
@@ -64,7 +63,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
             {
                 Intent intentUserInfo = new Intent(UserProfileMainPageActivity.this, UserInfoPageActivity.class);
                 startActivity(intentUserInfo);
-            }
+            }*/
         }
     }
     @Override
