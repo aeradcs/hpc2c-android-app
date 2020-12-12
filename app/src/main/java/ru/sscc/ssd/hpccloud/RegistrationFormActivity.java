@@ -60,7 +60,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
         EditText accessCode = findViewById(R.id.editTextAccessCode);
 
 
-        Button buttonRegister = (Button) findViewById(R.id.buttonRgister);
+        Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

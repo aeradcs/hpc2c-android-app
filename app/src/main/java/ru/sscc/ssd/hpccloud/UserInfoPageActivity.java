@@ -27,14 +27,16 @@ public class UserInfoPageActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     JsonParser jsonParser = new JsonParser();
     RecyclerView numberList;
-    private static ArrayList<String> keys = new ArrayList<>();
-    private static ArrayList<String> values = new ArrayList<>();
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
 
     UserInfoAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_page);
+        keys = new ArrayList<>();
+        values = new ArrayList<>();
         response = loadUserInfoResponse();
         try {
             jsonParser.parseUserInfo(response, keys, values);
@@ -55,6 +57,14 @@ public class UserInfoPageActivity extends AppCompatActivity {
         adapter = new UserInfoAdapter(keys.size());
         numberList.setAdapter(adapter);
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        keys = null;
+        values = null;
 
     }
 

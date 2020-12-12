@@ -20,10 +20,12 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
 
     private static int count;
     private int numberitems;
-    private static ArrayList<String> keys = UserInfoPageActivity.getKeys();
-    private static ArrayList<String> values = UserInfoPageActivity.getValues();
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
 
     public UserInfoAdapter(int size){
+        keys = UserInfoPageActivity.getKeys();
+        values = UserInfoPageActivity.getValues();
         numberitems = size;
         count = 0;
     }

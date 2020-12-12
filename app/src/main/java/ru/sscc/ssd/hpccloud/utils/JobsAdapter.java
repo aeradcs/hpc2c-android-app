@@ -18,13 +18,14 @@ import ru.sscc.ssd.hpccloud.R;
 public class JobsAdapter  extends RecyclerView.Adapter<JobsAdapter.JobsHolder>{
     private static int itemsCount;
     private int itemsAmount;
-    private static ArrayList<String> keys = JobsPageActivity.getKeys();
-    private static ArrayList<String> values = JobsPageActivity.getValues();
-    //private static int size = ApplicationsPageActivity.getVSize();
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
 
     private int valueCount;
 
     public JobsAdapter(int size){
+        keys = JobsPageActivity.getKeys();
+        values = JobsPageActivity.getValues();
         itemsAmount = size;
         itemsCount = 0;
         valueCount = 0;

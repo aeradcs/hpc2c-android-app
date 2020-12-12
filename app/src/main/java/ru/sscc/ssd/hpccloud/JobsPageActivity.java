@@ -21,8 +21,8 @@ public class JobsPageActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     JsonParser jsonParser = new JsonParser();
     RecyclerView numberList;
-    private static ArrayList<String> keys = new ArrayList<>();
-    private static ArrayList<String> values = new ArrayList<>();
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
     //private int size;
 
     JobsAdapter adapter;
@@ -30,6 +30,10 @@ public class JobsPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_page);
+        keys = new ArrayList<>();
+        values = new ArrayList<>();
+
+
         response = loadJobsResponse();
         try {
             jsonParser.parseJobs(response, keys, values);
@@ -45,6 +49,14 @@ public class JobsPageActivity extends AppCompatActivity {
         int size = values.size()/keys.size();
         adapter = new JobsAdapter(size);
         numberList.setAdapter(adapter);
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        keys = null;
+        values = null;
 
     }
     public static ArrayList<String> getKeys()

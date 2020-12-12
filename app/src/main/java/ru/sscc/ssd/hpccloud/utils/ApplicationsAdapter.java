@@ -18,13 +18,14 @@ import ru.sscc.ssd.hpccloud.UserInfoPageActivity;
 public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapter.ApplicationsHolder>{
     private int itemsCount;
     private int itemsAmount;
-    private static ArrayList<String> keys = ApplicationsPageActivity.getKeys();
-    private static ArrayList<String> values = ApplicationsPageActivity.getValues();
-    //private static int size = ApplicationsPageActivity.getVSize();
-    //ApplicationsPageActivity applicationsPageActivity;
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
     private int valueCount;
 
     public ApplicationsAdapter(int size){
+        keys = ApplicationsPageActivity.getKeys();
+        values = ApplicationsPageActivity.getValues();
+
         itemsAmount = size;
         itemsCount = 0;
         valueCount = 0;
@@ -53,13 +54,11 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
 
     class ApplicationsHolder extends RecyclerView.ViewHolder{
 
-        //TextView id;
         TextView name;
         TextView time;
 
         public ApplicationsHolder(@NonNull View itemView) {
             super(itemView);
-            //id = itemView.findViewById(R.id.tv);
             name = itemView.findViewById(R.id.tvAppName);
             time = itemView.findViewById(R.id.tvAppTime);
         }
@@ -67,9 +66,7 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
         void bind(int i)
         {
             for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {///////
-                /*if (keys.get(keyCount).equals("id")) {
-                    id.setText(values.get(valueCount));
-                }*/
+
                 if (keys.get(keyCount).equals("name")) {
                     name.setText(values.get(valueCount));
                 }

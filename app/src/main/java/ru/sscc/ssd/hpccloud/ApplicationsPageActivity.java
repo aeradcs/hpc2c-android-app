@@ -27,14 +27,21 @@ public class ApplicationsPageActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private JsonParser jsonParser = new JsonParser();
     private RecyclerView numberList;
-    private static ArrayList<String> keys = new ArrayList<>();
-    private static ArrayList<String> values = new ArrayList<>();
+    private static ArrayList<String> keys;
+    private static ArrayList<String> values;
     private ApplicationsAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applications_page);
+        keys = new ArrayList<>();
+        values = new ArrayList<>();
+        System.out.println("\n----------------------before--------------------------------\n");
+        System.out.println(keys);
+        System.out.println(values);
+        System.out.println("\n----------------------before-------------------------------\n");
+
         response = loadAppsResponse();
         try {
             jsonParser.parseApplications(response, keys, values);
@@ -51,7 +58,22 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         adapter = new ApplicationsAdapter(size);
         numberList.setAdapter(adapter);
 
+
+        System.out.println("\n--------------------------after--------------------------------\n");
+        System.out.println(keys);
+        System.out.println(values);
+        System.out.println("\n----------------------------after-------------------------------\n");
+
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        keys = null;
+        values = null;
+
+    }
+
     public static ArrayList<String> getKeys()
     {
         return keys;
