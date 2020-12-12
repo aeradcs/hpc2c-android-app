@@ -16,12 +16,12 @@ import ru.sscc.ssd.hpccloud.R;
 import ru.sscc.ssd.hpccloud.UserInfoPageActivity;
 
 public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapter.ApplicationsHolder>{
-    private static int itemsCount;
+    private int itemsCount;
     private int itemsAmount;
     private static ArrayList<String> keys = ApplicationsPageActivity.getKeys();
     private static ArrayList<String> values = ApplicationsPageActivity.getValues();
     //private static int size = ApplicationsPageActivity.getVSize();
-
+    //ApplicationsPageActivity applicationsPageActivity;
     private int valueCount;
 
     public ApplicationsAdapter(int size){
@@ -66,7 +66,7 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
 
         void bind(int i)
         {
-            for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
+            for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {///////
                 /*if (keys.get(keyCount).equals("id")) {
                     id.setText(values.get(valueCount));
                 }*/

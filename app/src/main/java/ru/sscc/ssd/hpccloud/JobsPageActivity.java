@@ -1,5 +1,6 @@
 package ru.sscc.ssd.hpccloud;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,7 +17,8 @@ import ru.sscc.ssd.hpccloud.utils.JobsAdapter;
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
 
 public class JobsPageActivity extends AppCompatActivity {
-    private static String response = UserProfileMainPageActivity.getResponseFromServer();
+    private String response;
+    private SharedPreferences sharedPreferences;
     JsonParser jsonParser = new JsonParser();
     RecyclerView numberList;
     private static ArrayList<String> keys = new ArrayList<>();
@@ -28,9 +30,9 @@ public class JobsPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_page);
-
+        response = loadJobsResponse();
         try {
-            jsonParser.parseJobs(response, keys, values/*, size*/);
+            jsonParser.parseJobs(response, keys, values);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -53,4 +55,38 @@ public class JobsPageActivity extends AppCompatActivity {
     {
         return values;
     }
+    public static void setKeys(ArrayList<String> value) {
+        JobsPageActivity.keys = value;
+    }
+
+    public static void setValues(ArrayList<String> value) {
+        JobsPageActivity.values = value;
+    }
+    public void saveToken(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("tokenUserId", value);
+        editor.commit();
+    }
+
+    public String loadToken() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("tokenUserId", null);
+    }
+
+
+    public void saveJobsResponse(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("jobsResponse", value);
+        editor.commit();
+
+
+    }
+    public String loadJobsResponse() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("jobsResponse", null);
+    }
+
+
 }

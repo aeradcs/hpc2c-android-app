@@ -29,31 +29,37 @@ import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 public class LoginPageActivity extends AppCompatActivity {
     private EditText userLogin;
     private EditText userPassword;
-    private static String tokenUserId = null;
+    private String tokenUserId;
     private String auth;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     Intent intentUserProfileMainPage;
 
 
     JsonParser jsonParser;
+
     public class RequestTask extends AsyncTask<URL, Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
             String responseFromServer = null;
-            try{
+            try {
                 responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
                 //tokenUserId = jsonParser.getToken(responseFromServer);
                 saveToken(jsonParser.getToken(responseFromServer));//
+                saveResponse(responseFromServer);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return responseFromServer;
         }
+
         @Override
         protected void onPostExecute(String response) {
-            intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
-            startActivity(intentUserProfileMainPage);
+            tokenUserId = getSharedPreferences("systemPrefs", MODE_PRIVATE).getString("tokenUserId", null);
+            if(tokenUserId != null) {
+                intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
+                startActivity(intentUserProfileMainPage);
+            }
         }
     }
 
@@ -64,7 +70,7 @@ public class LoginPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         tokenUserId = loadToken();
-        if(tokenUserId == null) {//страница авторизации
+        if (tokenUserId == null) {//страница авторизации
 
             userLogin = findViewById(R.id.editTextUserLogin);
             userPassword = findViewById(R.id.editTextUserPassword);
@@ -81,7 +87,7 @@ public class LoginPageActivity extends AppCompatActivity {
                 }
 
             });
-            Button buttonSignUp = (Button)findViewById(R.id.buttonSignUp);
+            Button buttonSignUp = (Button) findViewById(R.id.buttonSignUp);
             buttonSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,31 +96,41 @@ public class LoginPageActivity extends AppCompatActivity {
                 }
             });
 
-        }
-        else{//страница профиля пользователя
+        } else {//страница профиля пользователя
             intentUserProfileMainPage = new Intent(LoginPageActivity.this, UserProfileMainPageActivity.class);
             startActivity(intentUserProfileMainPage);
         }
 
     }
 
-    public static String getTokenUserId()
-    {
-        return tokenUserId;
-    }
 
 
-    public void saveToken(String value){
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+    public void saveToken(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("tokenUserId", value);
         editor.commit();
 
 
     }
-    public String loadToken(){
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+
+    public String loadToken() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
         return sharedPreferences.getString("tokenUserId", null);
+    }
+
+    public void saveResponse(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("authorizationResponse", value);
+        editor.commit();
+
+
+    }
+
+    public String loadResponse() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("authorizationResponse", null);
     }
 
     /*public boolean isValid()
@@ -125,9 +141,4 @@ public class LoginPageActivity extends AppCompatActivity {
 
         }
     }*/
-
-
-
-
-
 }

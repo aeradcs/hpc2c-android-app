@@ -64,6 +64,7 @@ public class DirectoryAdapter extends BaseExpandableListAdapter {
             case 1:{
                 ((TextView)groupView.findViewById(R.id.dirItem)).setText("apps");
 
+
             } break;
             case 2:{
                 ((TextView)groupView.findViewById(R.id.dirItem)).setText("docs");
@@ -104,6 +105,8 @@ public class DirectoryAdapter extends BaseExpandableListAdapter {
             case 1:{
                 switch (childPosition){
                     case 0:{
+                        LayoutInflater inflater1 = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        childView = inflater1.inflate(R.layout.directory_item, null);
                         ((TextView)childView.findViewById(R.id.subDirItem)).setText("sub 1");
                     } break;
                 }

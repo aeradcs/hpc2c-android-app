@@ -1,5 +1,6 @@
 package ru.sscc.ssd.hpccloud;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -22,21 +23,21 @@ import ru.sscc.ssd.hpccloud.utils.UserInfoAdapter;
 import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
 
 public class ApplicationsPageActivity extends AppCompatActivity {
-    private static String response = UserProfileMainPageActivity.getResponseFromServer();
-    JsonParser jsonParser = new JsonParser();
-    RecyclerView numberList;
+    private String response;
+    private SharedPreferences sharedPreferences;
+    private JsonParser jsonParser = new JsonParser();
+    private RecyclerView numberList;
     private static ArrayList<String> keys = new ArrayList<>();
     private static ArrayList<String> values = new ArrayList<>();
-    //private int size;
+    private ApplicationsAdapter adapter;
 
-    ApplicationsAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applications_page);
-
+        response = loadAppsResponse();
         try {
-            jsonParser.parseApplications(response, keys, values/*, size*/);
+            jsonParser.parseApplications(response, keys, values);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -59,5 +60,38 @@ public class ApplicationsPageActivity extends AppCompatActivity {
     {
         return values;
     }
+    public static void setKeys(ArrayList<String> value) {
+        ApplicationsPageActivity.keys = value;
+    }
+
+    public static void setValues(ArrayList<String> value) {
+        ApplicationsPageActivity.values = value;
+    }
+    public void saveToken(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("tokenUserId", value);
+        editor.commit();
+    }
+
+    public String loadToken() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("tokenUserId", null);
+    }
+    public void saveAppsResponse(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("appsResponse", value);
+        editor.commit();
+
+
+    }
+
+    public String loadAppsResponse() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("appsResponse", null);
+    }
+
+
 
 }

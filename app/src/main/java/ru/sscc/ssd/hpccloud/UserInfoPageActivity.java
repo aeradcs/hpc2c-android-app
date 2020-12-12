@@ -1,5 +1,6 @@
 package ru.sscc.ssd.hpccloud;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,7 +23,8 @@ import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.UserInfoAdapter;
 
 public class UserInfoPageActivity extends AppCompatActivity {
-    private static String response = UserProfileMainPageActivity.getResponseFromServer();
+    private String response;
+    private SharedPreferences sharedPreferences;
     JsonParser jsonParser = new JsonParser();
     RecyclerView numberList;
     private static ArrayList<String> keys = new ArrayList<>();
@@ -33,6 +35,7 @@ public class UserInfoPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_page);
+        response = loadUserInfoResponse();
         try {
             jsonParser.parseUserInfo(response, keys, values);
         } catch (JSONException e) {
@@ -62,6 +65,40 @@ public class UserInfoPageActivity extends AppCompatActivity {
     public static ArrayList<String> getValues()
     {
         return values;
+    }
+
+    public static void setKeys(ArrayList<String> value) {
+        UserInfoPageActivity.keys = value;
+    }
+
+    public static void setValues(ArrayList<String> value) {
+        UserInfoPageActivity.values = value;
+    }
+
+    public void saveToken(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("tokenUserId", value);
+        editor.commit();
+    }
+
+    public String loadToken() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("tokenUserId", null);
+    }
+
+    public void saveUserInfoResponse(String value) {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userInfoResponse", value);
+        editor.commit();
+
+
+    }
+
+    public String loadUserInfoResponse() {
+        sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("userInfoResponse", null);
     }
 
 }
