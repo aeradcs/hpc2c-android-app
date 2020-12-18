@@ -44,8 +44,11 @@ public class JobsPageActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         numberList.setLayoutManager(layoutManager);
         numberList.setHasFixedSize(true);
-        int size = values.size()/keys.size();
-        adapter = new JobsAdapter(size);
+        int size;
+        if(keys.size() != 0) {
+            size = values.size() / keys.size();
+        }
+        else size = 0;        adapter = new JobsAdapter(size);
         numberList.setAdapter(adapter);
 
     }

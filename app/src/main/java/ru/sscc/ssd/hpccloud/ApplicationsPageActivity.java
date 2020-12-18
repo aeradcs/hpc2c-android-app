@@ -44,7 +44,11 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         numberList.setLayoutManager(layoutManager);
         numberList.setHasFixedSize(true);
-        int size = values.size()/keys.size();
+        int size;
+        if(keys.size() != 0) {
+             size = values.size() / keys.size();
+        }
+        else size = 0;
         adapter = new ApplicationsAdapter(size);
         numberList.setAdapter(adapter);
     }

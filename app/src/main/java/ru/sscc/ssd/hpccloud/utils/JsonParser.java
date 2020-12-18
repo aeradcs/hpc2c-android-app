@@ -34,6 +34,10 @@ public class JsonParser {
         JSONObject object = new JSONObject(response);
         Iterator<String> iterator = object.keys();
         JSONArray arrayFromObject = object.getJSONArray(iterator.next());
+        if(arrayFromObject.toString().equals("[]"))
+        {
+            return;
+        }
         JSONObject objectFromArrayFromObject;
         int arrLength = arrayFromObject.length();
         int length;
@@ -56,6 +60,10 @@ public class JsonParser {
         JSONObject object = new JSONObject(response);
         Iterator<String> iterator = object.keys();
         JSONArray arrayFromObject = object.getJSONArray(iterator.next());
+        if(arrayFromObject.toString().equals("[]"))
+        {
+            return;
+        }
         JSONObject objectFromArrayFromObject;
         int arrLength = arrayFromObject.length();
         int length;

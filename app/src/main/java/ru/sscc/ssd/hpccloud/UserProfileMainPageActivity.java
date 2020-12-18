@@ -1,13 +1,11 @@
 package ru.sscc.ssd.hpccloud;
 
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.net.URL;
 
-import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.ServerAccess;
 
 
