@@ -44,11 +44,6 @@ public class UserInfoPageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");//___________________________
-        System.out.println(keys.toString() + "\n" + values.toString());*/
-
-
-
         numberList = findViewById(R.id.recycleViewUserInfo);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -56,7 +51,6 @@ public class UserInfoPageActivity extends AppCompatActivity {
         numberList.setHasFixedSize(true);
         adapter = new UserInfoAdapter(keys.size());
         numberList.setAdapter(adapter);
-
 
     }
 

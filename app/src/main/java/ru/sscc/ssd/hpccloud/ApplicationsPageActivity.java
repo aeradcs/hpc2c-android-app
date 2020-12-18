@@ -37,11 +37,11 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_applications_page);
         keys = new ArrayList<>();
         values = new ArrayList<>();
-        System.out.println("\n----------------------before--------------------------------\n");
+        /*System.out.println("\n----------------------before--------------------------------\n");
         System.out.println(keys);
         System.out.println(values);
         System.out.println("\n----------------------before-------------------------------\n");
-
+*/
         response = loadAppsResponse();
         try {
             jsonParser.parseApplications(response, keys, values);
@@ -59,10 +59,10 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         numberList.setAdapter(adapter);
 
 
-        System.out.println("\n--------------------------after--------------------------------\n");
+        /*System.out.println("\n--------------------------after--------------------------------\n");
         System.out.println(keys);
         System.out.println(values);
-        System.out.println("\n----------------------------after-------------------------------\n");
+        System.out.println("\n----------------------------after-------------------------------\n");*/
 
     }
 
