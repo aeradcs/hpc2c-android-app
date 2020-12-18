@@ -1,11 +1,9 @@
 package ru.sscc.ssd.hpccloud;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +20,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.ServerAccess;
@@ -46,10 +42,12 @@ public class RegistrationFormActivity extends AppCompatActivity {
             String responseFromServer = null;
             try {
                 responseFromServer = ServerAccess.getAuthorizationResponseFromServer(urls[0], auth);
+
                 System.out.println("\n------------------------AUTH RESPONSE--------------------\n" + responseFromServer);
 
                 saveToken(jsonParser.getToken(responseFromServer));
                 saveResponse(responseFromServer);
+
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -71,9 +69,10 @@ public class RegistrationFormActivity extends AppCompatActivity {
         protected String doInBackground(URL... urls) {
             int registrationResponseCode = 0;
             try {
-                registrationResponseCode = ServerAccess.getRegistrationResponse(urls[0], params, auth);
+                registrationResponseCode = ServerAccess.getRegistrationResponseCode(urls[0], params, auth);
 
                 System.out.println("\n------------------------REG RESPONSE--------------------\n" + registrationResponseCode);
+
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -99,6 +98,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
             else {
                 URL authURL = ServerAccess.generateAuthorizationURL();
                 new AuthorizationRequestTask().execute(authURL);
+
                 System.out.println("\n---------------------AUTH TASK IS RUNNING\n");
             }
         }

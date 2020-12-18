@@ -2,23 +2,12 @@ package ru.sscc.ssd.hpccloud;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import org.json.JSONException;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
 import ru.sscc.ssd.hpccloud.utils.UserInfoAdapter;
 

@@ -32,7 +32,7 @@ public class UserProfileMainPageActivity extends AppCompatActivity {
 
             try {
                 responseFromServer = ServerAccess.getResponse(urls[0]);
-                //requestType = jsonParser.getRequestType();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,33 +1,21 @@
 package ru.sscc.ssd.hpccloud.utils;
 
-import android.content.ContentValues;
 import android.net.Uri;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Scanner;
-import java.util.SplittableRandom;
-
-import ru.sscc.ssd.hpccloud.ApplicationsPageActivity;
-
-import static org.apache.http.params.CoreConnectionPNames.CONNECTION_TIMEOUT;
 
 public class ServerAccess {
     private static final String HTTP = "http://";
@@ -68,12 +56,11 @@ public class ServerAccess {
         return url;
     }
 
-    public static int getRegistrationResponse(URL url, ArrayList<String > params, String auth) throws IOException, JSONException {
+    public static int getRegistrationResponseCode(URL url, ArrayList<String > params, String auth) throws IOException, JSONException {
 
         HttpURLConnection httpURLConnection;
         InputStream inputStream = null;
         BufferedWriter bufferedWriter;
-
 
         httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("POST");
@@ -105,29 +92,6 @@ public class ServerAccess {
         outputStream.close();
 
         return code;
-
-
-
-
-
-
-        /*if (code == 201) {
-
-
-            InputStream input = httpURLConnection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            return code;
-
-
-        }
-        else if(code == 409)
-            return code;
-        else return -1;*/
     }
     public static String getAuthorizationResponseFromServer(URL url, String auth) throws IOException {
 

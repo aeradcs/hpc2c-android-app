@@ -12,7 +12,6 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import ru.sscc.ssd.hpccloud.utils.ApplicationsAdapter;
 import ru.sscc.ssd.hpccloud.utils.JobsAdapter;
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
 
@@ -23,7 +22,6 @@ public class JobsPageActivity extends AppCompatActivity {
     RecyclerView numberList;
     private static ArrayList<String> keys;
     private static ArrayList<String> values;
-    //private int size;
 
     JobsAdapter adapter;
     @Override

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ru.sscc.ssd.hpccloud.ApplicationsPageActivity;
 import ru.sscc.ssd.hpccloud.JobsPageActivity;
 import ru.sscc.ssd.hpccloud.R;
 
@@ -53,15 +52,12 @@ public class JobsAdapter  extends RecyclerView.Adapter<JobsAdapter.JobsHolder>{
         return itemsAmount;
     }
     class JobsHolder extends RecyclerView.ViewHolder{
-
-        //TextView id;
         TextView name;
         TextView time;
         TextView state;
 
         public JobsHolder(@NonNull View itemView) {
             super(itemView);
-            //id = itemView.findViewById(R.id.tv);
             name = itemView.findViewById(R.id.tvJobsName);
             time = itemView.findViewById(R.id.tvJobsTime);
             state = itemView.findViewById(R.id.tvJobsState);
@@ -70,9 +66,6 @@ public class JobsAdapter  extends RecyclerView.Adapter<JobsAdapter.JobsHolder>{
         void bind(int i)
         {
             for(int keyCount = 0; keyCount < keys.size(); keyCount++, valueCount++) {
-                /*if (keys.get(keyCount).equals("id")) {
-                    id.setText(values.get(valueCount));
-                }*/
                 if (keys.get(keyCount).equals("name")) {
                     name.setText(values.get(valueCount));
                 }

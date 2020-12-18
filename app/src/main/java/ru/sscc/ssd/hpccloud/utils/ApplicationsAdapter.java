@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 import ru.sscc.ssd.hpccloud.ApplicationsPageActivity;
 import ru.sscc.ssd.hpccloud.R;
-import ru.sscc.ssd.hpccloud.UserInfoPageActivity;
 
 public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapter.ApplicationsHolder>{
     private int itemsCount;

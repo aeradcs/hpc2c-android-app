@@ -2,7 +2,6 @@ package ru.sscc.ssd.hpccloud;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Base64;
 
 import ru.sscc.ssd.hpccloud.utils.ApplicationsAdapter;
 import ru.sscc.ssd.hpccloud.utils.JsonParser;
-import ru.sscc.ssd.hpccloud.utils.UserInfoAdapter;
 
-import static ru.sscc.ssd.hpccloud.utils.ServerAccess.generateURL;
 
 public class ApplicationsPageActivity extends AppCompatActivity {
     private String response;
@@ -37,11 +31,7 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_applications_page);
         keys = new ArrayList<>();
         values = new ArrayList<>();
-        /*System.out.println("\n----------------------before--------------------------------\n");
-        System.out.println(keys);
-        System.out.println(values);
-        System.out.println("\n----------------------before-------------------------------\n");
-*/
+
         response = loadAppsResponse();
         try {
             jsonParser.parseApplications(response, keys, values);
@@ -57,13 +47,6 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         int size = values.size()/keys.size();
         adapter = new ApplicationsAdapter(size);
         numberList.setAdapter(adapter);
-
-
-        /*System.out.println("\n--------------------------after--------------------------------\n");
-        System.out.println(keys);
-        System.out.println(values);
-        System.out.println("\n----------------------------after-------------------------------\n");*/
-
     }
 
     @Override
@@ -71,7 +54,6 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         super.onStop();
         keys = null;
         values = null;
-
     }
 
     public static ArrayList<String> getKeys()
@@ -89,6 +71,7 @@ public class ApplicationsPageActivity extends AppCompatActivity {
     public static void setValues(ArrayList<String> value) {
         ApplicationsPageActivity.values = value;
     }
+
     public void saveToken(String value) {
         sharedPreferences = getSharedPreferences("systemPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -105,8 +88,6 @@ public class ApplicationsPageActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("appsResponse", value);
         editor.commit();
-
-
     }
 
     public String loadAppsResponse() {

@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import ru.sscc.ssd.hpccloud.R;
 import ru.sscc.ssd.hpccloud.UserInfoPageActivity;
@@ -36,10 +34,6 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIn
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.user_info_item, parent, false);
         UserInfoHolder holder = new UserInfoHolder(view);
-
-        //holder.key.setText(keys.get(count));
-        //holder.value.setText(values.get(count));
-        //count++;
 
         return holder;
     }
