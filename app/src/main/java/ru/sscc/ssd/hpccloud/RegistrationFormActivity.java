@@ -99,6 +99,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
             else {
                 URL authURL = ServerAccess.generateAuthorizationURL();
                 new AuthorizationRequestTask().execute(authURL);
+                System.out.println("\n---------------------AUTH TASK IS RUNNING\n");
             }
         }
     }
@@ -116,6 +117,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
         EditText phone = findViewById(R.id.editTextPhone);
         EditText accessCode = findViewById(R.id.editTextAccessCode);
 
+        jsonParser = new JsonParser();
 
 
 
